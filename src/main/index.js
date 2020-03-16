@@ -2,34 +2,49 @@
 
 import { app, BrowserWindow } from 'electron'
 
+const __DEV__ = process.env.NODE_ENV === 'development';
 /**
  * Set `__static` path to static files in production
  * https://simulatedgreg.gitbooks.io/electron-vue/content/en/using-static-assets.html
  */
-if (process.env.NODE_ENV !== 'development') {
+if (__DEV__) {
   global.__static = require('path').join(__dirname, '/static').replace(/\\/g, '\\\\')
 }
 
 let mainWindow
-const winURL = process.env.NODE_ENV === 'development'
+const winURL = __DEV__
   ? `http://localhost:9080`
   : `file://${__dirname}/index.html`
 
-function createWindow () {
+function createWindow() {
   /**
    * Initial window options
    */
   mainWindow = new BrowserWindow({
     height: 563,
-    useContentSize: true,
-    width: 1000
+    // useContentSize: true,
+    width: 1000,
+    // titleBarStyle: 'hidden',
+    // frame: false
+    webPreferences: { webSecurity: false },
   })
 
+  // mainWindow.loadURL(winURL)
   mainWindow.loadURL(winURL)
 
   mainWindow.on('closed', () => {
     mainWindow = null
   })
+
+  if (__DEV__) {
+    mainWindow.webContents.on("did-frame-finish-load", () => {
+      mainWindow.webContents.once("devtools-opened", () => {
+        mainWindow.focus();
+      });
+      mainWindow.webContents.openDevTools();
+    });
+  }
+
 }
 
 app.on('ready', createWindow)
@@ -45,6 +60,7 @@ app.on('activate', () => {
     createWindow()
   }
 })
+
 
 /**
  * Auto Updater
