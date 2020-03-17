@@ -13,7 +13,6 @@ export default {
   namespaced: true,
   state: {
     username: getLocalStorage('username') || '',
-    avatar: getLocalStorage('avatar') || '',
     token: getLocalStorage('token') || ''
   },
   getters: {

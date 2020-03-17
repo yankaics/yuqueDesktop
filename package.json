@@ -19,7 +19,7 @@
     "postinstall": "npm run lint:fix"
   },
   "build": {
-    "productName": "yuque-desktop",
+    "productName": "语雀桌面版",
     "appId": "cn.reacts.yq",
     "directories": {
       "output": "build"

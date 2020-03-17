@@ -1,6 +1,7 @@
 'use strict'
 
 import { app, BrowserWindow } from 'electron'
+const path = require('path');
 
 const __DEV__ = process.env.NODE_ENV === 'development';
 /**
@@ -8,23 +9,23 @@ const __DEV__ = process.env.NODE_ENV === 'development';
  * https://simulatedgreg.gitbooks.io/electron-vue/content/en/using-static-assets.html
  */
 if (__DEV__) {
-  global.__static = require('path').join(__dirname, '/static').replace(/\\/g, '\\\\')
+  global.__static = path.join(__dirname, '/static').replace(/\\/g, '\\\\')
 }
 
 let mainWindow
 const winURL = __DEV__
   ? `http://localhost:9080`
   : `file://${__dirname}/index.html`
-
 function createWindow() {
   /**
    * Initial window options
    */
   mainWindow = new BrowserWindow({
+    icon: path.join(__dirname, '/static/img/logo.png'),
     height: 563,
     // useContentSize: true,
     width: 1000,
-    // titleBarStyle: 'hidden',
+    titleBarStyle: 'hidden',
     // frame: false
     webPreferences: { webSecurity: false },
   })
