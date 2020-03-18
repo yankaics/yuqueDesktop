@@ -1,24 +1,28 @@
 <template>
-  <div class="wrap">
-    <div class="left">
-      左边
-    </div>
-    <div class="middle">
-      中间
-      <button @click="aaa">asdfasdf</button>
-    </div>
-    <div class="right">
-      右边
+  <div :class="$style.wrap">
+    <div :class="$style.container">
+      <div :class="$style.left">
+        <User />
+        <Arrow />
+      </div>
+      <!-- <div class="middle"> -->
+      <!-- 中间 -->
+      <!-- <button @click="aaa">asdfasdf</button> -->
+      <!-- </div> -->
+      <div :class="$style.right">
+        右边
+      </div>
     </div>
   </div>
 </template>
 
 <script>
-
+import User from "./components/User";
+import Arrow from "./components/Arrow";
 export default {
   name: 'TopBanner',
   components: {
-
+    User, Arrow
   },
   data() {
     return {
@@ -40,10 +44,16 @@ export default {
 }
 </script>
 
-<style lang='scss' scoped>
+<style lang='scss' module>
 .wrap {
-  -webkit-app-region: drag;
+  height: 60px;
+}
+.container {
   position: relative;
+  display: flex;
+  justify-content: space-between;
+  // 开启窗口拖动
+  -webkit-app-region: drag;
   // width: 100%;
   height: 40px;
   z-index: 100;
@@ -51,9 +61,17 @@ export default {
   min-width: 956px;
   padding-top: 20px;
   padding: 20px 10px 0 10px;
-  display: flex;
-  justify-content: space-between;
 }
 .left {
+  display: flex;
+  align-items: center;
+  flex: 1;
+  :global(div) {
+    // 所有子元素不可拖动
+    -webkit-app-region: no-drag;
+  }
+}
+.right {
+  flex: 1;
 }
 </style>

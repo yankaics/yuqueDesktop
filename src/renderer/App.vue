@@ -1,8 +1,10 @@
 <template>
-  <div id="app">
-    <TopBanner />
-    <router-view :key="$router.path" />
-    <button @click="aaa">123123123</button>
+  <div id="app" class="mainWrap">
+    <template v-if="isLogin">
+      <TopBanner />
+      <!-- <router-view :key="$router.path" /> -->
+      <Layout />
+    </template>
   </div>
 </template>
 
@@ -10,15 +12,17 @@
 import { createNamespacedHelpers } from "vuex";
 import { openWinModal } from "helper/ui/win";
 import { msgInfo, msgErr, msgYesNo } from "helper/ui/dialog";
-import TopBanner from 'components/TopBanner';
 import electron from "electron";
+// import components
+import TopBanner from 'components/TopBanner';
+import Layout from "components/Layout";
 
 const { mapGetters: userGetters, mapActions } = createNamespacedHelpers("user/");
 
 export default {
   name: 'yuque-desktop',
   components: {
-    TopBanner
+    TopBanner, Layout
   },
   data() {
     return {
@@ -34,11 +38,12 @@ export default {
   mounted() {
     // 登录逻辑
     this.checkLogin();
+    this.registerHandler();
   },
   watch: {
-    userToken() {
-      console.log('1111111')
-    }
+  },
+  destroyed() {
+    msgInfo('销毁了')
   },
   methods: {
     ...mapActions(["login"]),
@@ -72,18 +77,28 @@ export default {
 
       // console.log(a)
       // console.log(auth)
+    },
+    registerHandler() {
+      document.ondragstart = () => {
+        return false;
+      }
     }
   }
 }
 </script>
 
 <style>
-/* body { */
-/* */
-/* } */
+html,
 body {
-  /* height: 100%; */
+  height: 100%;
+}
+body {
   width: 100%;
   margin: 0;
+}
+.mainWrap{
+  display: flex;
+  flex-direction: column;
+  height: 100%;
 }
 </style>

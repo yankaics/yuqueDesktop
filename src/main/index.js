@@ -22,12 +22,14 @@ function createWindow() {
    */
   mainWindow = new BrowserWindow({
     icon: path.join(__dirname, '/static/img/logo.png'),
-    height: 563,
+    height: 640,
     // useContentSize: true,
     width: 1000,
-    titleBarStyle: 'hidden',
+    minWidth: 1000,
+    minHeight: 640,
+    titleBarStyle: 'hidden', // 隐藏标题栏
     // frame: false
-    webPreferences: { webSecurity: false },
+    webPreferences: { webSecurity: false }, // 解决跨域
   })
 
   // mainWindow.loadURL(winURL)
@@ -51,9 +53,10 @@ function createWindow() {
 app.on('ready', createWindow)
 
 app.on('window-all-closed', () => {
-  if (process.platform !== 'darwin') {
-    app.quit()
-  }
+  // console.log(process.platform)
+  // if (process.platform !== 'darwin') {
+  app.quit()
+  // }
 })
 
 app.on('activate', () => {

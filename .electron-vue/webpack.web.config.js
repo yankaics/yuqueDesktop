@@ -35,7 +35,7 @@ let webConfig = {
           'vue-style-loader',
           {
             loader: 'css-loader',
-            options: { modules: true }
+            options: { modules: true, localIdentName: '[local]_[hash:base64:8]' }
           },
           'sass-loader']
       },
@@ -121,12 +121,6 @@ let webConfig = {
     path: path.join(__dirname, '../dist/web')
   },
   resolve: {
-    alias: {
-      '@': path.join(__dirname, '../src/renderer'),
-      'vue$': 'vue/dist/vue.esm.js',
-      'helper': path.join(__dirname, '../src/renderer/packages/helper'),
-      'components': path.join(__dirname, '../src/components')
-    },
     extensions: ['.js', '.vue', '.json', '.css']
   },
   target: 'web'

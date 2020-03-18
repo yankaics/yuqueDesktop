@@ -33,6 +33,9 @@ module.exports = {
     'indent': 0,
     'eol-last': 0,
     'space-before-blocks': 0,
+    'camelcase': 0,
+    'spaced-comment': 0,
+    'brace-style': 0,
     // allow debugger during development
     'no-debugger': process.env.NODE_ENV === 'production' ? 2 : 0
   }

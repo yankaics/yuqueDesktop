@@ -20,17 +20,14 @@ export default {
       return {
         token: state.token,
         useranme: state.useranme,
-        avatar: state.avatar,
       };
     },
     isLogin(state) {
-      // eslint-disable-next-line eqeqeq
-      return state.token != '';
+      return state.token !== '';
     },
   },
   mutations: {
     [types.SET_TOKEN](state, token) {
-      console.log(1)
       state.token = token;
     }
   },

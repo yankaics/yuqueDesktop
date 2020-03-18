@@ -44,7 +44,14 @@ let rendererConfig = {
       },
       {
         test: /\.scss$/,
-        use: ['vue-style-loader', 'css-loader', 'sass-loader']
+        use: [
+          'vue-style-loader',
+          {
+            loader: 'css-loader',
+            options: { modules: true, localIdentName: '[local]_[hash:base64:8]' }
+          },
+          'sass-loader'
+        ]
       },
       {
         test: /\.sass$/,
@@ -147,7 +154,8 @@ let rendererConfig = {
       '@': path.join(__dirname, '../src/renderer'),
       'vue$': 'vue/dist/vue.esm.js',
       'helper': path.join(__dirname, '../src/renderer/packages/helper'),
-      'components': path.join(__dirname, '../src/renderer/components')
+      'components': path.join(__dirname, '../src/renderer/components'),
+      'base-components': path.join(__dirname, '../src/renderer/base-components'),
     },
     extensions: ['.js', '.vue', '.json', '.css', '.node']
   },
