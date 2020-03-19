@@ -65,7 +65,7 @@ app.on('activate', () => {
   }
 })
 
-
+app.commandLine.appendSwitch('disable-pinch');
 /**
  * Auto Updater
  *

@@ -12,7 +12,7 @@
 import { createNamespacedHelpers } from "vuex";
 import { openWinModal } from "helper/ui/win";
 import { msgInfo, msgErr, msgYesNo } from "helper/ui/dialog";
-import electron from "electron";
+import electron, { webFrame } from "electron";
 // import components
 import TopBanner from 'components/TopBanner';
 import Layout from "components/Layout";
@@ -39,11 +39,15 @@ export default {
     // 登录逻辑
     this.checkLogin();
     this.registerHandler();
+    console.log(webFrame)
+    webFrame.setZoomFactor(1);
+    webFrame.setVisualZoomLevelLimits(1, 1);
+    webFrame.setLayoutZoomLevelLimits(0, 0);
   },
   watch: {
   },
   destroyed() {
-    msgInfo('销毁了')
+    // msgInfo('销毁了')
   },
   methods: {
     ...mapActions(["login"]),
@@ -95,8 +99,10 @@ body {
 body {
   width: 100%;
   margin: 0;
+  font: caption;
+  color: #393839;
 }
-.mainWrap{
+.mainWrap {
   display: flex;
   flex-direction: column;
   height: 100%;

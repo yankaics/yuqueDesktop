@@ -62,7 +62,8 @@ export default {
   computed: {
     spliterWrapStyle() {
       return {
-        right: `-${this.spliterWidth + 2}px`
+        right: `-${this.spliterWidth + 2}px`,
+        cursor: this.canMove ? 'default' : 'col-resize'
       }
     },
     spliterLineStyle() {
@@ -215,9 +216,8 @@ export default {
     z-index: 100;
     // padding: 0 10px;
     user-select: none;
-    cursor: col-resize;
     .line {
-      background-color: black;
+      background-color: #ccc;
       height: 100%;
       margin: 0 2px;
     }
