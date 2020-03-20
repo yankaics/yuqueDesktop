@@ -24,8 +24,8 @@ instance.interceptors.response.use(function (response) {
 }, function (error) {
   // console.log('触发响应拦截器 错误', error);
   if (error.response.status === 401) {
-    // token失效，重新登录
-    VueStore.dispatch('user/login');
+    // token失效，触发登录逻辑
+    VueStore.dispatch('Global/getToken');
   }
   // 对响应错误做点什么
   return Promise.reject(error);

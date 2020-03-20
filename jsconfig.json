@@ -11,6 +11,15 @@
       "components/*": [
         "src/renderer/components/*"
       ],
+      "base-components/*": [
+        "src/renderer/base-components/*"
+      ],
+      "assets/*": [
+        "src/renderer/packages/assets/*"
+      ],
+      "store/*": [
+        "src/renderer/packages/store/*"
+      ],
     },
     "target": "ES6",
     "module": "commonjs",

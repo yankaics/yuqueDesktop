@@ -10,14 +10,23 @@
 
 <script>
 import { createNamespacedHelpers } from "vuex";
+import electron, { webFrame } from "electron";
 import { openWinModal } from "helper/ui/win";
 import { msgInfo, msgErr, msgYesNo } from "helper/ui/dialog";
-import electron, { webFrame } from "electron";
 // import components
 import TopBanner from 'components/TopBanner';
 import Layout from "components/Layout";
 
-const { mapGetters: userGetters, mapActions } = createNamespacedHelpers("user/");
+// api
+import { GetUserInfo } from "./api";
+// import {  } from "store/modules/Info";
+import { types as infoTypes } from "store/modules/Info";
+
+
+const { mapState: globalState, mapGetters: globalGetters, mapActions: globalActions } = createNamespacedHelpers("Global/");
+const { mapMutations: infoMutations } = createNamespacedHelpers("Info/");
+
+const { SET_USER_AVATAR, SET_USER_NAME } = infoTypes;
 
 export default {
   name: 'yuque-desktop',
@@ -30,19 +39,17 @@ export default {
     }
   },
   computed: {
-    ...userGetters(["isLogin", 'userInfo']),
+    ...globalGetters(["isLogin"]),
+    ...globalState(['token']),
     userToken() {
-      return this.userInfo.token;
+      return this.token;
     }
   },
   mounted() {
     // 登录逻辑
-    this.checkLogin();
-    this.registerHandler();
-    console.log(webFrame)
-    webFrame.setZoomFactor(1);
-    webFrame.setVisualZoomLevelLimits(1, 1);
-    webFrame.setLayoutZoomLevelLimits(0, 0);
+    this.initWin();
+    // 检查登录状态
+    this.login();
   },
   watch: {
   },
@@ -50,44 +57,29 @@ export default {
     // msgInfo('销毁了')
   },
   methods: {
-    ...mapActions(["login"]),
-    aaa() {
-      msgYesNo('消息内容');
-      // openWinModal();
-
+    ...globalActions(["login"]),
+    ...infoMutations([SET_USER_NAME, SET_USER_AVATAR]),
+    async login() {
+      let data = await GetUserInfo();
+      let { avatar_url, login } = data;
+      this.SET_USER_NAME(login);
+      this.SET_USER_AVATAR(avatar_url);
+      // this.avatar = avatar_url;
+      // this.username = login;
     },
-    checkLogin() {
-      if (!this.isLogin) {
-        console.log('未登录')
-        // debugger;
-        this.login();
-      } else {
-        console.log('已经登录的状态')
-      }
-
-      // console.log(this.isLogin)
-
-      // const { BrowserWindow, BrowserView } = this.$electron.remote
-      // let win = new BrowserWindow({ width: 800, height: 600 })
-      // win.on('closed', () => {
-      //   win = null
-      // })
-
-      // let view = new BrowserView()
-      // win.setBrowserView(view)
-      // view.setBounds({ x: 0, y: 0, width: 300, height: 300 })
-      // view.webContents.loadURL('https://electronjs.org')
-
-
-      // console.log(a)
-      // console.log(auth)
-    },
-    registerHandler() {
+    initWin() {
+      // 防止内部图片被拖动
       document.ondragstart = () => {
         return false;
       }
-    }
-  }
+      // 禁止使用ctrl及双指缩放
+      webFrame.setZoomFactor(1);
+      webFrame.setVisualZoomLevelLimits(1, 1);
+      webFrame.setLayoutZoomLevelLimits(0, 0);
+    },
+
+  },
+
 }
 </script>
 

@@ -157,6 +157,7 @@ let rendererConfig = {
       'components': path.join(__dirname, '../src/renderer/components'),
       'base-components': path.join(__dirname, '../src/renderer/base-components'),
       'assets': path.join(__dirname, '../src/renderer/packages/assets'),
+      'store': path.join(__dirname, '../src/renderer/packages/store'),
     },
     extensions: ['.js', '.vue', '.json', '.css', '.node']
   },

@@ -1,9 +1,9 @@
 <template>
   <div :class="$style.splitPanelCon">
-    <SplitPanel :width="200" :max="300" :leftVisible="groupListVisible"
+    <SplitPanel :width="270" :min="270" :max="-400" :leftVisible="groupListVisible"
       :rightVisible="rightVisible">
       <div slot="left" :class="$style.contentItem">
-        <GroupList />
+        <GroupArea />
         <!-- <button @click="groupListVisible=!groupListVisible">隐藏左</button><button
           @click="rightVisible=!rightVisible">隐藏右</button>Left1 -->
 
@@ -29,12 +29,12 @@
 </template>
 <script>
 import SplitPanel from 'base-components/SplitPanel'
-import GroupList from "components/GroupList";
+import GroupArea from "components/GroupArea";
 
 export default {
   name: 'layout',
   components: {
-    SplitPanel, GroupList
+    SplitPanel, GroupArea
   },
   data() {
     return {
@@ -58,7 +58,7 @@ export default {
 .splitPanelCon {
   flex: 1;
   width: 100%;
-  // height: 100%;
+  height: calc(100% - 60px);
   // background: papayawhip;
   .contentItem {
     height: 100%;

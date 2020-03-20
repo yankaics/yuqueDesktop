@@ -28,12 +28,10 @@ const auth = params => {
   };
   query.sign = sign(query, clientSecret);
   const url = `${host}/oauth2/authorize?${querystring.stringify(query)}`;
-  console.log(openWinModal)
   return openWinModal({ url }).catch(err => {
     log(`[yuque-auth][WARING] 尝试自动打开浏览器失败: ${err.message}`);
     log(`[yuque-auth][WARING] 请复制链接到浏览器中打开完成授权: ${url}`);
   }).then((win) => {
-    console.log('进来了。')
     return getToken({ clientId, host, code: query.code }, win)
   });
   // return open(url, { wait: false }).catch(err => {

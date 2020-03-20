@@ -23,7 +23,6 @@ export default {
   methods: {
     async aaa() {
       let a = await GetUserInfo();
-      console.log('组件中', a);
     }
   },
 }
