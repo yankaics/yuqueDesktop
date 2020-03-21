@@ -10,16 +10,18 @@
       </div>
       <div slot="right" :class="$style.contentItem">
 
-        <SplitPanel :width="200" :min="200" :max="-200" :leftVisible="docListVisible"
+        <SplitPanel :width="250" :min="200" :max="-200" :leftVisible="docListVisible"
           :rightVisible="docVisible">
 
           <div slot="left" :class="$style.contentItem">
             <!-- <button @click="listVisible=!listVisible">隐藏左</button><button
               @click="docVisible=!docVisible">隐藏右</button>Left2 -->
+            <ReopArea />
           </div>
           <div slot="right" :class="$style.contentItem">
             <!-- <button @click="listVisible=!listVisible">隐藏左</button><button
               @click="docVisible=!docVisible">隐藏右</button>Right2 -->
+            <DocArea />
           </div>
 
         </SplitPanel>
@@ -30,11 +32,13 @@
 <script>
 import SplitPanel from 'base-components/SplitPanel'
 import GroupArea from "components/GroupArea";
+import ReopArea from "components/ReopArea";
+import DocArea from "components/DocArea";
 
 export default {
   name: 'layout',
   components: {
-    SplitPanel, GroupArea
+    SplitPanel, GroupArea, ReopArea, DocArea
   },
   data() {
     return {

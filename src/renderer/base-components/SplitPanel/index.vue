@@ -94,7 +94,7 @@ export default {
     },
     rightStyle() {
       let style = {}
-      console.log(this.$refs.outer && this.$refs.outer.clientWidth - this.$refs.outer.scrollWidth)
+      // console.log(this.$refs.outer && this.$refs.outer.clientWidth - this.$refs.outer.scrollWidth)
       if (this.max < 0) {
         style.minWidth = `${Math.abs(this.max)}px`;
       }

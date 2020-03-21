@@ -10,7 +10,14 @@ export const createMenu = (items) => {
   for (const item of items) {
     menu.append(new MenuItem(item))
   }
+  let _popup = menu.popup;
+  // popup附加默认的window
+  menu.popup = (options) => {
+    return _popup({ window: remote.getCurrentWindow(), ...options });
+  }
+
   return menu;
+
   // menu.append(new MenuItem({ label: '笔记', click() { console.log('item 1 clicked') } }))
   // menu.append(new MenuItem({ type: 'separator' }))
   // menu.append(new MenuItem({ label: '文件夹', click() { } }))

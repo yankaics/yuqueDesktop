@@ -26,7 +26,7 @@ import { types as infoTypes } from "store/modules/Info";
 const { mapState: globalState, mapGetters: globalGetters, mapActions: globalActions } = createNamespacedHelpers("Global/");
 const { mapMutations: infoMutations } = createNamespacedHelpers("Info/");
 
-const { SET_USER_AVATAR, SET_USER_NAME } = infoTypes;
+const { SET_USER_AVATAR, SET_USER_ID } = infoTypes;
 
 export default {
   name: 'yuque-desktop',
@@ -45,11 +45,14 @@ export default {
       return this.token;
     }
   },
+  created() {
+    // 检查登录状态
+    this.login();
+    console.log('app created')
+  },
   mounted() {
     // 登录逻辑
     this.initWin();
-    // 检查登录状态
-    this.login();
   },
   watch: {
   },
@@ -58,11 +61,11 @@ export default {
   },
   methods: {
     ...globalActions(["login"]),
-    ...infoMutations([SET_USER_NAME, SET_USER_AVATAR]),
+    ...infoMutations([SET_USER_ID, SET_USER_AVATAR]),
     async login() {
       let data = await GetUserInfo();
       let { avatar_url, login } = data;
-      this.SET_USER_NAME(login);
+      this.SET_USER_ID(login);
       this.SET_USER_AVATAR(avatar_url);
       // this.avatar = avatar_url;
       // this.username = login;

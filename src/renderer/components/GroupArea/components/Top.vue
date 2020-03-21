@@ -10,13 +10,12 @@
 </template>
 
 <script>
-import { remote } from 'electron';
 import { createMenu } from "helper/ui/menu";
 
 import SelectGroup from "./SelectGroup";
 
 export default {
-  name: 'Tools',
+  name: 'GroupAreaTop',
   components: {
     SelectGroup
   },
@@ -40,7 +39,7 @@ export default {
       this.menu = createMenu(menu);
     },
     createDoc() {
-      this.menu.popup({ window: remote.getCurrentWindow(), x: 50, y: 110 });
+      this.menu.popup({ x: 50, y: 110 });
     }
   },
 
@@ -51,7 +50,6 @@ export default {
 .wrap {
   display: flex;
   align-items: center;
-  // height: 60px;
   border-bottom: 1px solid #e1e0e5;
 }
 .createDoc {

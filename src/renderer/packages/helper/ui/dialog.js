@@ -7,7 +7,6 @@ const { dialog } = electron.remote
  * @param {*} title 标题
  */
 export const msgInfo = (message = "", title = "提示信息") => {
-  console.log(electron.remote)
   dialog.showMessageBox({
     type: 'info',
     buttons: ['确定'],

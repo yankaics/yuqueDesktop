@@ -47,6 +47,7 @@ export default {
 <style lang='scss' module>
 .wrap {
   height: 60px;
+  user-select:none;
 }
 .container {
   position: relative;

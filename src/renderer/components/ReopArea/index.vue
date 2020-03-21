@@ -1,17 +1,17 @@
 <template>
   <div :class="$style.wrap">
     <Top :class="$style.top" />
-    <GroupList :class="$style.groupCategory"/>
+    <DocList :class="$style.docList"/>
   </div>
 </template>
 
 <script>
 import Top from "./components/Top";
-import GroupList from "./components/GroupList";
+import DocList from "./components/DocList";
 export default {
-  name: 'GroupArea',
+  name: 'ReopArea',
   components: {
-    Top, GroupList
+    Top, DocList
   },
   data() {
     return {
@@ -37,7 +37,7 @@ export default {
 .top {
   height: 60px;
 }
-.groupCategory {
+.docList {
   flex: 1;
   // overflow:hidden;
   overflow-y: auto;

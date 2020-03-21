@@ -3,6 +3,7 @@ import axios from 'helper/axios'
 
 import ElementUI from 'element-ui';
 import 'assets/style/elementui/index.css';
+import 'assets/style/reset.css';
 
 import App from './App'
 import router from './packages/router'
