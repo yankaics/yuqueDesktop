@@ -13,14 +13,18 @@ export const types = {
   SET_DOC_ID: 'SET_DOC_ID',
   SET_IS_USER_MODE: 'SET_IS_USER_MODE',
   SET_USER_AVATAR: 'SET_USER_AVATAR',
-  CLEAR_DOC_ARGS: 'CLEAR_DOC_ARGS'
+  CLEAR_DOC_ARGS: 'CLEAR_DOC_ARGS',
+  SET_SHOW_MODE: 'SET_SHOW_MODE',
+  SET_SORT_MODE: 'SET_SORT_MODE',
+  SET_SORT_DESC: 'SET_SORT_DESC',
 }
 
-export const reopOpts = {
+/** 文档列表选项 */
+export const reopOptsTypes = {
   /** 列表模式 */
-  SHOW_LIST: 'SHOW_LIST_MODE',
+  SHOW_LIST: 'SHOW_LIST',
   /** 摘要模式 */
-  SHOW_SUMMARY: 'SHOW_SUMMARY_MODE',
+  SHOW_SUMMARY: 'SHOW_SUMMARY',
   /** 创建时间排序 */
   SORT_CREATE_TIME: 'SORT_CREATE_TIME',
   /** 修改时间排序 */
@@ -41,9 +45,9 @@ export default {
     reopName: '',
     docID: '',
     reopOpts: {
-      showMode: reopOpts.SHOW_SUMMARY,
-      sortMode: '',
-      sortDesc: true,
+      showMode: reopOptsTypes.SHOW_SUMMARY,
+      sortMode: reopOptsTypes.SORT_CREATE_TIME,
+      sortDesc: true, // 降序，从大到小
     },
     isUserMode: true
   },
@@ -86,7 +90,16 @@ export default {
       state.reopID = '';
       state.docID = '';
       state.reopName = '';
-    }
+    },
+    [types.SET_SHOW_MODE](state, showMode) {
+      state.reopOpts.showMode = showMode;
+    },
+    [types.SET_SORT_MODE](state, sortMode) {
+      state.reopOpts.sortMode = sortMode;
+    },
+    [types.SET_SORT_DESC](state, sortDesc) {
+      state.reopOpts.sortDesc = sortDesc;
+    },
   },
   actions: {
 

@@ -1,6 +1,6 @@
 <template>
   <div :class="$style.wrap">
-    <p :class="$style.title">{{reopName}}</p>
+    <p :class="$style.title" :title="reopName">{{reopName}}</p>
     <el-button size="mini" @click="handleToolClick" ref="btn" :class="$style.btn">
       <i class="el-icon-s-operation" />
       <i :class="$style.arrow" />
@@ -12,7 +12,11 @@
 import { createNamespacedHelpers } from "vuex";
 import { createMenu } from "helper/ui/menu";
 
+import { reopOptsTypes, types } from "store/modules/Info";
 const { mapState: infoState, mapMutations: infoMutations } = createNamespacedHelpers("Info/");
+
+const { SHOW_LIST, SHOW_SUMMARY, SORT_CREATE_TIME, SORT_UPDATE_TIME, SORT_FILE_NAME } = reopOptsTypes
+const { SET_SHOW_MODE, SET_SORT_MODE, SET_SORT_DESC } = types;
 
 
 export default {
@@ -21,17 +25,28 @@ export default {
   },
   data() {
     return {
-      chk: true
+      chk: true,
     };
   },
   computed: {
-    ...infoState(['reopName'])
+    ...infoState(['reopName', 'reopOpts']),
+    showMode() {
+      return this.reopOpts.showMode;
+    },
+    sortMode() {
+      return this.reopOpts.sortMode;
+    },
+    sortDesc() {
+      return this.reopOpts.sortDesc;
+    }
   },
   mounted() {
-    this.initMenu();
+    // this.initMenu();
   },
   methods: {
+    ...infoMutations([SET_SHOW_MODE, SET_SORT_MODE, SET_SORT_DESC]),
     handleToolClick(e) {
+      this.initMenu();
       const { left, bottom } = this.$refs.btn.$el.getBoundingClientRect()
       this.menu.popup({ x: Math.floor(left), y: Math.floor(bottom + 10) });
       this.$refs.btn.$el.blur();
@@ -39,37 +54,64 @@ export default {
     initMenu() {
       const menu = [
         {
+          id: SHOW_SUMMARY,
           label: '摘要',
-          click() { console.log('新建笔记') },
+          click: () => { this.handleShowModeClick(SHOW_SUMMARY) },
           type: 'radio',
-          checked: true
+          checked: this.showMode === SHOW_SUMMARY
         },
         {
+          id: SHOW_LIST,
           label: '列表',
-          click() { console.log('文件夹') },
+          click: () => { this.handleShowModeClick(SHOW_LIST) },
           type: 'radio',
+          checked: this.showMode === SHOW_LIST
         },
         {
           type: 'separator',
         },
         {
-          label: '创建时间',
-          click() { console.log('文件夹') },
+          id: SORT_CREATE_TIME,
+          label: `创建时间${this.getSortDescStr(SORT_CREATE_TIME)}`,
+          click: () => { this.handleSortModeClick(SORT_CREATE_TIME) },
           type: 'radio',
+          checked: this.sortMode === SORT_CREATE_TIME
         },
         {
-          label: '修改时间',
-          click() { console.log('文件夹') },
+          id: SORT_UPDATE_TIME,
+          label: `修改时间${this.getSortDescStr(SORT_UPDATE_TIME)}`,
+          click: () => { this.handleSortModeClick(SORT_UPDATE_TIME) },
           type: 'radio',
-          checked: true
+          checked: this.sortMode === SORT_UPDATE_TIME
         },
         {
-          label: '文件名称',
-          click() { console.log('文件夹') },
+          id: SORT_FILE_NAME,
+          label: `文件名称${this.getSortDescStr(SORT_FILE_NAME)}`,
+          click: () => { this.handleSortModeClick(SORT_FILE_NAME) },
           type: 'radio',
+          checked: this.sortMode === SORT_FILE_NAME
         },
       ]
       this.menu = createMenu(menu);
+    },
+    handleSortModeClick(sortMode) {
+      if (this.sortMode === sortMode) {
+        this.SET_SORT_DESC(!this.sortDesc);
+      } else {
+        this.SET_SORT_DESC(true);
+        this.SET_SORT_MODE(sortMode);
+      }
+    },
+    handleShowModeClick(showMode) {
+      if (this.showMode === showMode) return;
+      this.SET_SHOW_MODE(showMode);
+    },
+    getSortDescStr(sortMode) {
+      if (this.sortMode === sortMode) {
+        return this.sortDesc ? " ↓" : " ↑"
+      } else {
+        return ''
+      }
     }
   },
 
@@ -87,6 +129,10 @@ export default {
 }
 .title {
   font-size: 14px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  cursor: default;
 }
 .btn {
   &:global(.el-button--mini) {

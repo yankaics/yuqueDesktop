@@ -1,10 +1,9 @@
 <template>
   <div :class="$style.wrap">
-    <p>userID -{{userID}}</p>
+    <!-- <p>userID -{{userID}}</p>
     <p>groupID -{{groupID}}</p>
     <p>reopID -{{reopID}}</p>
-    <p>docID -{{docID}}</p>
-
+    <p>docID -{{docID}}</p> -->
     <el-tree ref="tree" :data="dataList" :props="defaultProps" node-key="id"
       @node-click="handleNodeClick" highlight-current :default-expanded-keys="defaultExpandNode"
       :expand-on-click-node="false">

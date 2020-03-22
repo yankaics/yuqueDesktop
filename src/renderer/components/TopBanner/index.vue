@@ -10,7 +10,7 @@
       <!-- <button @click="aaa">asdfasdf</button> -->
       <!-- </div> -->
       <div :class="$style.right">
-        右边
+        
       </div>
     </div>
   </div>
