@@ -6,7 +6,7 @@ const assert = require('assert');
 const crypto = require('crypto');
 const urllib = require('urllib');
 const open = require('opn');
-const { openWinModal } = require('./ui/win')
+const { openWinModal, closeModalWin } = require('./ui/win')
 
 const LARK_HOST = 'https://www.yuque.com';
 
@@ -28,11 +28,11 @@ const auth = params => {
   };
   query.sign = sign(query, clientSecret);
   const url = `${host}/oauth2/authorize?${querystring.stringify(query)}`;
-  return openWinModal({ url }).catch(err => {
+  return openWinModal({ url, winName: 'login' }).catch(err => {
     log(`[yuque-auth][WARING] 尝试自动打开浏览器失败: ${err.message}`);
     log(`[yuque-auth][WARING] 请复制链接到浏览器中打开完成授权: ${url}`);
-  }).then((win) => {
-    return getToken({ clientId, host, code: query.code }, win)
+  }).then(() => {
+    return getToken({ clientId, host, code: query.code })
   });
   // return open(url, { wait: false }).catch(err => {
   //   log(`[yuque-auth][WARING] 尝试自动打开浏览器失败: ${err.message}`);
@@ -43,7 +43,7 @@ const auth = params => {
   // });
 };
 
-function getToken({ clientId, host, code }, win) {
+function getToken({ clientId, host, code }) {
   return new Promise((resolve, reject) => {
     const url = `${host}/oauth2/token`;
     const interval = 3000;
@@ -84,7 +84,7 @@ function getToken({ clientId, host, code }, win) {
     function done(token) {
       clearInterval(timer);
       if (token) {
-        win.close();
+        closeModalWin('login')
         return resolve(token);
 
       }

@@ -4,13 +4,14 @@
       <div :class="$style.left">
         <User />
         <Arrow />
+        <LayoutTool />
       </div>
       <!-- <div class="middle"> -->
       <!-- 中间 -->
       <!-- <button @click="aaa">asdfasdf</button> -->
       <!-- </div> -->
       <div :class="$style.right">
-        
+
       </div>
     </div>
   </div>
@@ -19,10 +20,11 @@
 <script>
 import User from "./components/User";
 import Arrow from "./components/Arrow";
+import LayoutTool from "./components/LayoutTool";
 export default {
   name: 'TopBanner',
   components: {
-    User, Arrow
+    User, Arrow, LayoutTool
   },
   data() {
     return {
@@ -47,7 +49,7 @@ export default {
 <style lang='scss' module>
 .wrap {
   height: 60px;
-  user-select:none;
+  user-select: none;
 }
 .container {
   position: relative;

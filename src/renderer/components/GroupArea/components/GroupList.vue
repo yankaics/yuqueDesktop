@@ -143,8 +143,6 @@ export default {
     handleNodeClick(data, node, component) {
       const { id, type, label } = data;
       if (type === nodeType.group) {
-        // 选中团队分类，清空参数
-        // this.CLEAR_DOC_ARGS();
         // 选中团队分类，恢复成之前的项
         this.$refs.tree.setCurrentKey(this.beforeSelectRepoKey);
         component.$el.blur();

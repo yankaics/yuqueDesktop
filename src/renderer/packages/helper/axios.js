@@ -1,6 +1,7 @@
 import axios from 'axios'
 import VueStore from "@/packages/store";
 import { getLocalStorage } from "helper/getAppData";
+import { now } from 'moment';
 
 const instance = axios.create({
   baseURL: 'https://www.yuque.com/api/v2',
@@ -20,9 +21,14 @@ axios.interceptors.request.use(function (config) {
 // 响应拦截器
 instance.interceptors.response.use(function (response) {
   // console.log('触发响应拦截器', response);
+  const timeout = Math.abs(getLocalStorage('tokenTime') - now());
+  if (timeout > 864000000) {
+    VueStore.dispatch('Global/getToken');
+  }
   return response;
 }, function (error) {
   // console.log('触发响应拦截器 错误', error);
+
   if (error.response.status === 401) {
     // token失效，触发登录逻辑
     VueStore.dispatch('Global/getToken');

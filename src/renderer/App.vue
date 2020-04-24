@@ -22,7 +22,6 @@ import { GetUserInfo } from "./api";
 // import {  } from "store/modules/Info";
 import { types as infoTypes } from "store/modules/Info";
 
-
 const { mapState: globalState, mapGetters: globalGetters, mapActions: globalActions } = createNamespacedHelpers("Global/");
 const { mapMutations: infoMutations } = createNamespacedHelpers("Info/");
 
@@ -55,6 +54,7 @@ export default {
     this.initWin();
   },
   watch: {
+
   },
   destroyed() {
     // msgInfo('销毁了')
@@ -64,6 +64,7 @@ export default {
     ...infoMutations([SET_USER_ID, SET_USER_AVATAR]),
     async login() {
       let data = await GetUserInfo();
+      if (!data) return;
       let { avatar_url, login } = data;
       this.SET_USER_ID(login);
       this.SET_USER_AVATAR(avatar_url);

@@ -1,15 +1,16 @@
 import { setLocalStorage, getLocalStorage } from "helper/getAppData";
 import { refreshMainWindow } from "helper/ui/win";
 import auth from "helper/auth";
+import { now } from "moment";
 
 export const types = {
-  SET_TOKEN: 'SET_TOKEN'
+  SET_TOKEN: 'SET_TOKEN',
 }
 
 export default {
   namespaced: true,
   state: {
-    token: getLocalStorage('token') || ''
+    token: getLocalStorage('token') || '',
   },
   getters: {
     // userInfo(state) {
@@ -25,7 +26,7 @@ export default {
   mutations: {
     [types.SET_TOKEN](state, token) {
       state.token = token;
-    }
+    },
   },
   actions: {
     async getToken({ commit }) {
@@ -38,8 +39,10 @@ export default {
           scope: 'repo,doc,group,artboard',
         })
         if (tokenInfo) {
+          console.log('1111111111')
           // 把token存到本地存储中，供下次打开应用时读取
           setLocalStorage('token', tokenInfo.access_token)
+          setLocalStorage('tokenTime', now())
           commit(types.SET_TOKEN, tokenInfo.access_token)
           // 刷新页面
           refreshMainWindow();

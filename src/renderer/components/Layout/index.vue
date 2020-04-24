@@ -30,10 +30,14 @@
   </div>
 </template>
 <script>
+import { createNamespacedHelpers } from "vuex";
 import SplitPanel from 'base-components/SplitPanel'
 import GroupArea from "components/GroupArea";
 import ReopArea from "components/ReopArea";
 import DocArea from "components/DocArea";
+
+import { LayoutType } from "store/modules/UI";
+const { mapState: uiState } = createNamespacedHelpers("UI/");
 
 export default {
   name: 'layout',
@@ -46,6 +50,30 @@ export default {
       docListVisible: true,
       docVisible: true,
       rightVisible: true
+    }
+  },
+  computed: {
+    ...uiState(["curLayoutType"]),
+  },
+  watch: {
+    curLayoutType(val) {
+      // 控制界面布局
+      if (val === LayoutType.FULL) {
+        this.groupListVisible = true;
+        this.docListVisible = true;
+        this.docVisible = true;
+        this.rightVisible = true;
+      } else if (val === LayoutType.FILE) {
+        this.groupListVisible = false;
+        this.docListVisible = true;
+        this.docVisible = true;
+        this.rightVisible = true;
+      } else if (val === LayoutType.DOC) {
+        this.groupListVisible = false;
+        this.docListVisible = false;
+        this.docVisible = true;
+        this.rightVisible = true;
+      }
     }
   },
   methods: {
