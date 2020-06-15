@@ -2,6 +2,10 @@
 
 > 语雀桌面版
 
+
+![avatar](https://s1.ax1x.com/2020/06/15/N9k7Js.png)
+
+
 #### Build Setup
 
 ``` bash
@@ -19,6 +23,7 @@ npm run build
 npm run lint
 
 ```
+
 
 ---
 
