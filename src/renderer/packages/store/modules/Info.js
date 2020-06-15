@@ -44,7 +44,7 @@ export default {
     reopID: '',
     reopName: '',
     docID: '',
-    reopOpts: {
+    reopOpts: { // 仓库排序使用
       showMode: reopOptsTypes.SHOW_SUMMARY,
       sortMode: reopOptsTypes.SORT_CREATE_TIME,
       sortDesc: true, // 降序，从大到小

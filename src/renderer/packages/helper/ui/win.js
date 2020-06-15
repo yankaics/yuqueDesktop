@@ -1,6 +1,8 @@
 import electron from 'electron'
-
+// const path = require('path');
 const ele = electron.remote
+
+// const ipc = ele.ipcMain
 
 export const openWinModal = ({ url, winName }) => {
   return new Promise((resolve, reject) => {
@@ -41,7 +43,7 @@ export const closeAllModalWindow = () => {
   const winArr = window.openedWin;
   for (const win of winArr) {
     win.close()
-  } 
+  }
 }
 
 /**
@@ -58,3 +60,37 @@ export const closeModalWin = (winName) => {
 // export default {
 //   openWinModal
 // }
+
+export const openNewWin = (url) => {
+  const { BrowserWindow } = ele;
+  const mainWin = ele.getCurrentWindow();
+  let child = new BrowserWindow({ parent: mainWin, modal: false, show: true })
+  child.loadURL(url)
+  child.once('ready-to-show', () => {
+    // window.openedWin.push(child);
+    // child.show()
+    // console.log(child.webContents.getURL())
+    // setTimeout(() => {
+    //   child.close();
+    //   console.log('1')
+    // }, 3000);
+  })
+
+
+
+
+  // const { BrowserWindow } = electron;
+  // const win = ele.getCurrentWindow();
+  // let newwin;
+  // ipc.on('createWindow', () => {
+  //   newwin = new BrowserWindow({
+  //     width: 800,
+  //     height: 600,
+  //     frame: false,
+  //     parent: win, //win是主窗口
+  //   })
+  //   newwin.loadURL(url); //new.html是新开窗口的渲染进程
+  //   newwin.on('closed', () => { newwin = null })
+
+  // })
+}

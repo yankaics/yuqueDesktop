@@ -20,6 +20,9 @@
       "store/*": [
         "src/renderer/packages/store/*"
       ],
+      "modules/*": [
+        "src/renderer/packages/modules/*"
+      ],
     },
     "target": "ES6",
     "module": "commonjs",

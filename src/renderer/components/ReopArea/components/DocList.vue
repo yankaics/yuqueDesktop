@@ -2,7 +2,7 @@
   <ul :class="$style.wrap">
     <li v-for="doc in shouldDocList" :key="doc.slug"
       :class="[$style.docItem, showMode === reopOptsTypes.SHOW_LIST && $style.docListMode,showMode === reopOptsTypes.SHOW_SUMMARY && $style.docSummaryMode,  doc.slug === docID && $style.active]"
-      @click="handleDocClick(doc.slug)">
+      @click="handleDocClick(doc.slug)" @dblclick="onDbClickDoc(groupID, reopID, doc.slug)">
       <div :class="$style.text" :title="doc.title">{{doc.title}}</div>
       <div :class="$style.desc" v-show="showMode === reopOptsTypes.SHOW_SUMMARY && doc.description">
         {{doc.description}}
@@ -17,6 +17,7 @@
 import moment from "moment";
 // api
 import { fetchGetDocs } from "@/api";
+import { openNewWin } from "helper/ui/win";
 
 // vuex
 import { createNamespacedHelpers } from "vuex";
@@ -96,6 +97,11 @@ export default {
     },
     handleDocClick(docID) {
       this.SET_DOC_ID(docID);
+    },
+    onDbClickDoc(groupID, repoID, docID) {
+      console.log(groupID, repoID, docID)
+      openNewWin(`https://www.yuque.com/${this.groupID}/${this.reopID}/${this.docID}`)
+      // 打开新窗口
     }
   },
 }

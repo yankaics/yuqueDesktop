@@ -4,7 +4,7 @@
       <div :class="$style.left">
         <User />
         <Arrow />
-        <LayoutTool />
+        <Tools />
       </div>
       <!-- <div class="middle"> -->
       <!-- 中间 -->
@@ -20,11 +20,11 @@
 <script>
 import User from "./components/User";
 import Arrow from "./components/Arrow";
-import LayoutTool from "./components/LayoutTool";
+import Tools from "./components/Tools";
 export default {
   name: 'TopBanner',
   components: {
-    User, Arrow, LayoutTool
+    User, Arrow, Tools
   },
   data() {
     return {

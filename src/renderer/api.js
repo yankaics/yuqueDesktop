@@ -26,3 +26,6 @@ export const fetchGetGroupRepos = (groupID) => axios.get(`/groups/${groupID}/rep
 
 /** 获取文档列表，根据 用户名/团队名 ; 仓库名 */
 export const fetchGetDocs = (userIDOrGroupID, repoID) => axios.get(`/repos/${userIDOrGroupID}/${repoID}/docs`)
+
+/** 获取单篇文档的详细信息 */
+export const fetchGetDocInfo = (userIDOrGroupID, repoID, docID) => axios.get(`/repos/${userIDOrGroupID}/${repoID}/docs/${docID}`)
